@@ -22,15 +22,12 @@ interface VideoTakewaysListProps {
 }
 
 const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ data }) => {
-
-
   if (!data) {
     return <div>No data available</div>;
   }
-
   return (
     <div className="space-y-6">
-      {data.topics!.map((topic, index) => (
+      {data.topics && data.topics!.map((topic, index) => (
         <Card key={index}>
           <CardHeader>
             <CardTitle>{topic.topic}</CardTitle>
