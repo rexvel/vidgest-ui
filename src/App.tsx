@@ -1,25 +1,12 @@
 import React, { useCallback, useState } from 'react'
 import { Input, Label, Button } from './ui';
-import './App.css'
 import VideoTakewaysList from './components/VideoTakewaysList';
 import useMindTreeData from './hooks'
+import './App.css'
 
-interface Subtopic {
-  name: string;
-  description: string;
-}
-
-interface Topic {
-  name: string;
-  subtopics: Subtopic[];
-}
-
-interface MindTreeData {
-  topics: Topic[];
-}
 
 function App() {
-  const [url, setUrl] = useState( '');
+  const [url, setUrl] = useState('');
   const { data, loading, error, fetchData } = useMindTreeData();
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,12 +29,12 @@ function App() {
           onChange={handleChange}
           className="mb-2"
         />
-        <Button type="submit">Generate summary</Button>
+        <Button variant="outline" type="submit">Generate summary</Button>
       </form>
-      
+
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {data && <VideoTakewaysList data={data as MindTreeData} />}
+      {data && <VideoTakewaysList data={data as unknown} />}
     </div>
   )
 }
