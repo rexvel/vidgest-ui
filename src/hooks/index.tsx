@@ -1,20 +1,18 @@
+import { Topic } from '@/components/VideoTakewaysList';
 import { useState, useCallback } from 'react';
 
-interface MindTreeData {
-  // Define the structure of your mind tree data here
-  // For example:
-  nodes: Array<{ id: string; label: string }>;
-  edges: Array<{ source: string; target: string }>;
-}
-
 interface MindTreeState {
-  data: MindTreeData | null;
+  data: {
+    topics: Topic[] | null;
+  }
   loading: boolean;
   error: string | null;
 }
 
 const initialState: MindTreeState = {
-  data: null,
+  data: {
+    topics: null,
+  },
   loading: false,
   error: null,
 };
@@ -30,7 +28,7 @@ const useMindTreeData = () => {
     setState(prevState => ({ ...prevState, error, loading: false }));
   }, []);
 
-  const setData = useCallback((data: MindTreeData) => {
+  const setData = useCallback((data: Topic[]) => {
     setState(prevState => ({ ...prevState, data, loading: false, error: null }));
   }, []);
 
@@ -47,7 +45,7 @@ const useMindTreeData = () => {
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
-      const jsonData: MindTreeData = await res.json();
+      const jsonData: Topic[] = await res.json();
       setData(jsonData);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');

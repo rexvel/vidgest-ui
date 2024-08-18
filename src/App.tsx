@@ -34,7 +34,7 @@ function App() {
 
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {data && <VideoTakewaysList data={data as unknown} />}
+      {data && <VideoTakewaysList data={data}/> }
     </div>
   )
 }

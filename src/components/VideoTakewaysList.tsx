@@ -6,25 +6,31 @@ import {
   CardTitle,
 } from "../ui/card";
 
-interface Subtopic {
+export interface Subtopic {
   description: string;
 }
 
-interface Topic {
+export interface Topic {
   topic: string;
   subtopics: Subtopic[];
 }
 
 interface VideoTakewaysListProps {
   data: {
-    topics: Topic[];
-  };
+    topics: Topic[] | null;
+  }
 }
 
 const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ data }) => {
+
+
+  if (!data) {
+    return <div>No data available</div>;
+  }
+
   return (
     <div className="space-y-6">
-      {data.topics.map((topic, index) => (
+      {data.topics!.map((topic, index) => (
         <Card key={index}>
           <CardHeader>
             <CardTitle>{topic.topic}</CardTitle>
