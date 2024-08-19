@@ -28,5 +28,3 @@ pnpm run dev
 ```bash
 pnpm run build
 ```
-### Run the app in production mode
-```bash
