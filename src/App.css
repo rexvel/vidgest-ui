@@ -1,0 +1,21 @@
+.custom-textarea {
+    min-height: 80px;
+    resize: none;
+    font-size: 1rem;
+    border-color: #e5e7eb;
+    background-color: #f8f9fa;
+    border-radius: 0.375rem;
+  }
+  
+  .custom-textarea::placeholder {
+    color: #f8f9fa;
+    font-style: italic;
+  }
+  
+  .custom-textarea:focus {
+    outline: none;
+    box-shadow: none !important;
+    border-color: #d1d5db;
+    border-radius: 0.375rem;
+  }
+  
