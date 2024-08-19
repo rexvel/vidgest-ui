@@ -23,11 +23,9 @@ const MessageInput: React.FC<VideoUrlFormProps> = ({ onSubmit }) => {
     }, [url, onSubmit]);
 
 
-    console.log(url);
-
     return (
         <div className="max-w-2xl mx-auto p-4 bg-[#f8f9fa] rounded-lg">
-            <div className="flex flex-start flex-col space-x-2">
+            <div className="flex flex-row space-x-2">
                 <form onSubmit={handleSubmit} className="flex-grow">
                     <Textarea
                         value={url}
@@ -38,7 +36,7 @@ const MessageInput: React.FC<VideoUrlFormProps> = ({ onSubmit }) => {
                 <Button
                     variant="secondary"
                     type="submit"
-                    className=" min-w-fit self-start p-2 m-4"
+                    className=" min-w-fit  p-2"
                     disabled={!url.trim() || isSending}
                     onClick={handleSubmit}
                 >
