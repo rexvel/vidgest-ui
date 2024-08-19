@@ -1,50 +1,32 @@
-# React + TypeScript + Vite
+# Video summarizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The name tells you what this project supposed to do.
 
-Currently, two official plugins are available:
+That my implementation of idea of synthesizing the video content by the help of LLMs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+All you need is ```API_KEY``` of LLM that you would like to utilize.
+Currently there are only OpenAI and Anthropic LLMs supported.
 
-## Expanding the ESLint configuration
+I recommend you to use OpenAI as it is cheaper and more efficient with text processing so far.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+## How to run it ?
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Make sure that BE is working and all required credentials are set.
+### Install dependencies
+
+You can use any package manager as you like but out of the box this project is using [pnpm](https://pnpm.io/).
+
+```bash
+pnpm install
 ```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### Run the app
+```bash
+pnpm run dev
 ```
+### Build the app
+```bash
+pnpm run build
+```
+### Run the app in production mode
+```bash
