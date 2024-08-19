@@ -17,7 +17,6 @@ const MessageInput: React.FC<VideoUrlFormProps> = ({ onSubmit }) => {
     }, []);
 
     const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-        debugger;
         e.preventDefault();
         onSubmit(url);
     }, [url, onSubmit]);
