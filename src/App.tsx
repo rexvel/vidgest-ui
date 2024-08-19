@@ -1,7 +1,7 @@
 import VideoTakewaysList from './components/VideoTakewaysList';
 import useMindTreeData from './hooks'
-import './App.css'
 import VideoUrlForm from './components/PromptInput';
+import './App.css'
 
 
 function App() {
