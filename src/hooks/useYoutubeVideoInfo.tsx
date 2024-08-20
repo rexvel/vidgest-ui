@@ -24,6 +24,9 @@ const getApiClient = () => {
 console.log(import.meta.env)
 
 export const useYouTubeVideoInfo = (videoId: string) => {
+  if (!videoId) {
+    return { videoInfo: null, loading: false, error: null };
+  }
   const [videoInfo, setVideoInfo] = useState<ExtendedVideoInfo | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
