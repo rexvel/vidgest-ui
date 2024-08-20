@@ -12,7 +12,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
 
   if (loading) {
     return (
-      <Card className="w-[300px]">
+      <Card className="w-[600px]">
         <CardHeader>
           <Skeleton className="h-4 w-[250px]" />
         </CardHeader>
@@ -27,7 +27,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
 
   if (error) {
     return (
-      <Card className="w-[300px]">
+      <Card className="w-[600px]">
         <CardHeader>
           <CardTitle>Error</CardTitle>
         </CardHeader>
@@ -40,7 +40,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
 
   if (!videoInfo) {
     return (
-      <Card className="w-[300px]">
+      <Card className="w-[600px]">
         <CardHeader>
           <CardTitle>No Data</CardTitle>
         </CardHeader>
@@ -52,7 +52,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
   }
 
   return (
-    <Card className="w-[300px]">
+    <Card className="w-[600px]">
       <CardHeader>
         <CardTitle>{videoInfo.title}</CardTitle>
       </CardHeader>

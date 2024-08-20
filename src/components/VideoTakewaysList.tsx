@@ -24,9 +24,10 @@ const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ data }) => {
     return <div className="text-center p-4">No data available</div>;
   }
 
-  const { video, highlights, key_insights } = data;
-
-  if (!video || !highlights || !key_insights) {
+  const { title, description, highlights, key_insights } = data;
+  debugger;
+  console.log(data)
+  if (!title || !highlights || !key_insights) {
     return <div className="text-center p-4">Incomplete data structure</div>;
   }
 
@@ -34,10 +35,10 @@ const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ data }) => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>{video.title}</CardTitle>
+          <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>{video.description}</p>
+          <p>{description}</p>
         </CardContent>
       </Card>
 
