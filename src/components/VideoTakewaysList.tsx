@@ -21,25 +21,23 @@ interface VideoTakewaysListProps {
 
 const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ data }) => {
   if (!data) {
-    return <div className="text-center p-4">No data available</div>;
+    return <div className="no-data-message">No data available</div>;
   }
 
   const { highlights, key_insights } = data;
 
-
-  if ( !highlights || !key_insights) {
-    return <div className="text-center p-4"></div>;
+  if (!highlights || !key_insights) {
+    return <div className="no-data-message"></div>;
   }
 
   return (
-    <div className="space-y-6">
-
+    <div className="takeaways-container">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg sm:text-xl md:text-2xl">Highlights</CardTitle>
+          <CardTitle className="takeaways-title">Highlights</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className="list-disc pl-6 space-y-2 text-sm sm:text-base">
+          <ul className="highlights-list">
             {highlights.map((highlight, index) => (
               <li key={index}>{highlight}</li>
             ))}

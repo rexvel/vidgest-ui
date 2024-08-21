@@ -1,0 +1,85 @@
+// Custom variables and mixins
+@import "./variables.scss";
+
+// Tailwind imports
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+// Custom classes
+.video-card {
+  @apply w-full max-w-[400px] mx-auto;
+}
+
+.video-card-title {
+  @apply text-lg sm:text-xl md:text-2xl;
+}
+
+.video-card-content {
+  @apply mt-2 text-sm sm:text-base;
+}
+
+.video-thumbnail {
+  @apply w-full h-auto;
+}
+
+.form-container {
+  @apply max-w-2xl mx-auto p-4 bg-[#f8f9fa] rounded-lg;
+}
+
+.form-layout {
+  @apply flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2;
+}
+
+.submit-button {
+  @apply w-full sm:w-auto p-2;
+}
+
+.custom-textarea {
+  @apply bg-[#f8f9fa] w-full;
+}
+
+.no-data-message {
+  @apply text-center p-4;
+}
+
+.takeaways-container {
+  @apply space-y-6;
+}
+
+.takeaways-title {
+  @apply text-lg sm:text-xl md:text-2xl;
+}
+
+.highlights-list {
+  @apply list-disc pl-6 space-y-2 text-sm sm:text-base;
+}
+
+// Home component styles
+.home-container {
+  @apply flex justify-center w-full bg-gray-100 min-h-screen;
+}
+
+.home-content {
+  @apply w-full max-w-7xl mx-auto px-4 py-8;
+}
+
+.home-layout {
+  @apply flex flex-col lg:flex-row gap-8 mt-8;
+}
+
+.home-video-section {
+  @apply w-full lg:w-1/2;
+}
+
+.home-takeaways-section {
+  @apply w-full lg:w-1/2;
+}
+
+.loading-text {
+  @apply text-center;
+}
+
+.error-text {
+  @apply text-center text-red-500;
+}

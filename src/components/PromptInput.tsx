@@ -28,20 +28,20 @@ const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl }) => 
     }, [url, onSubmit]);
 
     return (
-        <div className="max-w-2xl mx-auto p-4 bg-[#f8f9fa] rounded-lg">
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+        <div className="form-container">
+            <div className="form-layout">
                 <form onSubmit={handleSubmit} className="flex-grow">
                     <Textarea
                         value={url}
                         onChange={handleChange}
                         placeholder="Paste video link"
-                        className="custom-textarea bg-[#f8f9fa] w-full"
+                        className="custom-textarea"
                     />
                 </form>
                 <Button
                     variant="secondary"
                     type="submit"
-                    className="w-full sm:w-auto p-2"
+                    className="submit-button"
                     disabled={!url.trim() || isSending}
                     onClick={() => onSubmit(url)}
                 >

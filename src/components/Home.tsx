@@ -5,10 +5,8 @@ import YouTubeVideoCard from './YoutubeVideoCard';
 import VideoTakewaysList from './VideoTakewaysList';
 import VideoUrlForm from './PromptInput';
 
-
 export function Home() {
   const { data, loading, error, fetchData } = useMindTreeData();
-
   const [videoUrl, setVideoUrl] = useState('');
 
   const handleSubmit = (url: string) => {
@@ -23,25 +21,22 @@ export function Home() {
   };
 
   const videoId = extractVideoId(videoUrl);
-  debugger;
-  console.log(data);
+
   return (
-    <div className="flex justify-center w-full bg-gray-100 min-h-screen"> {/* Full-width container */}
-      <div className="w-full max-w-7xl mx-auto px-4 py-8"> {/* Updated */}
+    <div className="home-container">
+      <div className="home-content">
         <VideoUrlForm onSubmit={handleSubmit} initialUrl={videoUrl} />
-        <div className="flex flex-col lg:flex-row gap-8 mt-8"> {/* Updated */}
-          <div className="w-full lg:w-1/2"> {/* Updated */}
-            { videoId && <YouTubeVideoCard videoId={videoId} />}
-            {loading && <p className="text-center">Loading...</p>}
-            {error && <p className="text-center text-red-500">Error: {error}</p>}
+        <div className="home-layout">
+          <div className="home-video-section">
+            {videoId && <YouTubeVideoCard videoId={videoId} />}
+            {loading && <p className="loading-text">Loading...</p>}
+            {error && <p className="error-text">Error: {error}</p>}
           </div>
-          <div className="w-full lg:w-1/2"> {/* Updated */}
-             <VideoTakewaysList data={data} />
+          <div className="home-takeaways-section">
+            <VideoTakewaysList data={data} />
           </div>
         </div>
       </div>
     </div>
-
-
   )
 }

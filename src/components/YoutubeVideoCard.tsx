@@ -12,7 +12,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
 
   if (loading) {
     return (
-      <Card className="w-full max-w-[400px] mx-auto">
+      <Card className="video-card">
         <CardHeader>
           <Skeleton className="h-4 w-[250px]" />
         </CardHeader>
@@ -27,7 +27,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
 
   if (error) {
     return (
-      <Card className="w-full max-w-[400px] mx-auto">
+      <Card className="video-card">
         <CardHeader>
           <CardTitle>Error</CardTitle>
         </CardHeader>
@@ -40,7 +40,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
 
   if (!videoInfo) {
     return (
-      <Card className="w-full max-w-[400px] mx-auto">
+      <Card className="video-card">
         <CardHeader>
           <CardTitle>No Data</CardTitle>
         </CardHeader>
@@ -52,16 +52,16 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
   }
 
   return (
-    <Card className="w-full max-w-[400px] mx-auto">
+    <Card className="video-card">
       <CardHeader>
-        <CardTitle className="text-lg sm:text-xl md:text-2xl">{videoInfo.title}</CardTitle>
+        <CardTitle className="video-card-title">{videoInfo.title}</CardTitle>
       </CardHeader>
       <CardContent>
         <a href={videoInfo.videoUrl} target="_blank" rel="noopener noreferrer">
-          <img src={videoInfo.thumbnailUrl} alt={videoInfo.title} className="w-full h-auto" />
+          <img src={videoInfo.thumbnailUrl} alt={videoInfo.title} className="video-thumbnail" />
         </a>
-        <p className="mt-2 text-sm sm:text-base">Posted on: {videoInfo.datePosted}</p>
-        <p className="text-sm sm:text-base">Author: {videoInfo.authorName}</p>
+        <p className="video-card-content">Posted on: {videoInfo.datePosted}</p>
+        <p className="video-card-content">Author: {videoInfo.authorName}</p>
       </CardContent>
     </Card>
   );
