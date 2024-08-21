@@ -28,19 +28,19 @@ const Navbar: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-12">
             <SignedIn>
               <NavigationMenuItem>
-                <Link to="/home">
-                  <NavigationMenuLink className="hover:text-blue-600 transition-colors duration-200">
+                <NavigationMenuLink asChild>
+                  <Link to="/home" className="hover:text-blue-600 transition-colors duration-200">
                     Home
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
              
               <NavigationMenuItem>
-                <Link to="/history">
-                  <NavigationMenuLink className="hover:text-blue-600 transition-colors duration-200">
+                <NavigationMenuLink asChild>
+                  <Link to="/history" className="hover:text-blue-600 transition-colors duration-200">
                     History
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             </SignedIn>
           </div>

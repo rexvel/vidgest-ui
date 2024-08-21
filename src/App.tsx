@@ -10,7 +10,6 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        {/* <Route path="/" element={<Main />} /> */}
         <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
         <Route path="/history" element={<ProtectedRoute element={<HistoryPage />} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
