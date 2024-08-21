@@ -47,6 +47,7 @@ const useMindTreeData = () => {
       }
       const jsonData: Topic[] = await res.json();
       setData(jsonData);
+      return jsonData;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
     }
