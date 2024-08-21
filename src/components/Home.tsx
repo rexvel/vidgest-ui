@@ -1,9 +1,9 @@
-import useMindTreeData from '@/hooks';
-import '../App.css'
 import { useState } from 'react';
-import YouTubeVideoCard from './YoutubeVideoCard';
-import VideoTakewaysList from './VideoTakewaysList';
-import VideoUrlForm from './PromptInput';
+import useMindTreeData from '@/hooks';
+import YouTubeVideoCard from '@/components/YoutubeVideoCard';
+import VideoTakewaysList from '@/components/VideoTakewaysList';
+import VideoUrlForm from '@/components/PromptInput';
+import '@/App.css'
 
 export function Home() {
   const { data, loading, error, fetchData } = useMindTreeData();

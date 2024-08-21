@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './styles/custom.scss'  // Import the new SCSS file
+import App from '@/App'
 import { ClerkProvider } from '@clerk/clerk-react'
+import '@/styles/custom.scss';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 

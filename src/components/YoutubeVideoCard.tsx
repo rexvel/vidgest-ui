@@ -1,5 +1,5 @@
 import React from 'react';
-import { useYouTubeVideoInfo } from '../hooks/useYoutubeVideoInfo';
+import { useYouTubeVideoInfo } from '@/hooks/useYoutubeVideoInfo';
 import { Card, CardHeader, CardTitle, CardContent } from '@/ui/card';
 import { Skeleton } from '@/components/Skeleton';
 
