@@ -24,45 +24,24 @@ const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ data }) => {
     return <div className="text-center p-4">No data available</div>;
   }
 
-  const { title, description, highlights, key_insights } = data;
-  debugger;
-  console.log(data)
-  if (!title || !highlights || !key_insights) {
-    return <div className="text-center p-4">Incomplete data structure</div>;
+  const { highlights, key_insights } = data;
+
+
+  if ( !highlights || !key_insights) {
+    return <div className="text-center p-4"></div>;
   }
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p>{description}</p>
-        </CardContent>
-      </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Highlights</CardTitle>
+          <CardTitle className="text-lg sm:text-xl md:text-2xl">Highlights</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className="list-disc pl-6 space-y-2">
+          <ul className="list-disc pl-6 space-y-2 text-sm sm:text-base">
             {highlights.map((highlight, index) => (
               <li key={index}>{highlight}</li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Key Insights</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul className="list-disc pl-6 space-y-2">
-            {key_insights.map((insight, index) => (
-              <li key={index}>{insight}</li>
             ))}
           </ul>
         </CardContent>
