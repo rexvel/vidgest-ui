@@ -3,17 +3,28 @@ import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Home } from '@/pages/Home';
 import HistoryPage from '@/pages/History';
 import Navbar from '@/components/Navbar';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import '@/App.css'
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
-        <Route path="/history" element={<ProtectedRoute element={<HistoryPage />} />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <ErrorBoundary>
+        <Navbar />
+        <Routes>
+          <Route path="/home" element={
+            <ErrorBoundary>
+              <ProtectedRoute element={<Home />} />
+            </ErrorBoundary>
+          } />
+          <Route path="/history" element={
+            <ErrorBoundary>
+              <ProtectedRoute element={<HistoryPage />} />
+            </ErrorBoundary>
+          } />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </ErrorBoundary>
     </Router>
   )
 }

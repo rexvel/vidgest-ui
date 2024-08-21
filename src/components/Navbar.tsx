@@ -7,7 +7,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@/components/navigation-menu";
+} from "@/components/NavigationMenu";
 
 const Navbar: React.FC = () => {
   return (
