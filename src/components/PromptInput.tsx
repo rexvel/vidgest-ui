@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { Textarea } from "@/ui/textarea";
-import { Button } from "@/ui/button";
+import { Textarea } from "@/components/Textarea";
+import { Button } from "@/components/Button";
 import { Loader2 as Loader } from "lucide-react";
 
 interface VideoUrlFormProps {

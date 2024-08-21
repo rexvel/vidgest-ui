@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
-import { Button } from "@/ui/button";
+import { Button } from "@/components/Button";
 import {
   NavigationMenu,
   NavigationMenuItem,

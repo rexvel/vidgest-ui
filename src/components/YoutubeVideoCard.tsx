@@ -1,6 +1,6 @@
 import React from 'react';
 import { useYouTubeVideoInfo } from '@/hooks/useYoutubeVideoInfo';
-import { Card, CardHeader, CardTitle, CardContent } from '@/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/Card';
 import { Skeleton } from '@/components/Skeleton';
 
 interface YouTubeVideoCardProps {

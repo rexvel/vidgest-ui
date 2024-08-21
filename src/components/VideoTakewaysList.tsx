@@ -4,7 +4,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/ui/card";
+} from "@/components/Card";
 
 interface VideoData {
   video: {

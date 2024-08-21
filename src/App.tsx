@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { Home } from '@/components/Home';
-import HistoryPage from '@/components/History';
+import { Home } from '@/pages/Home';
+import HistoryPage from '@/pages/History';
 import Navbar from '@/components/Navbar';
 import '@/App.css'
 
