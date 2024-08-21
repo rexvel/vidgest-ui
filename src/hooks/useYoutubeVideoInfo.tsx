@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { YouTubeApiClient } from '../../youtube-api.ts';
+import { YouTubeApiClient } from '@/youtube-api';
 
 interface ExtendedVideoInfo {
   title: string;

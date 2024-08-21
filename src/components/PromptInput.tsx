@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { Textarea } from "@/ui/textarea";
-import { Button } from "@/ui/button";
+import { Textarea } from "@/components/Textarea";
+import { Button } from "@/components/Button";
 import { Loader2 as Loader } from "lucide-react";
 
 interface VideoUrlFormProps {
@@ -28,19 +28,20 @@ const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl }) => 
     }, [url, onSubmit]);
 
     return (
-        <div className="max-w-2xl mx-auto p-4 bg-[#f8f9fa] rounded-lg">
-            <div className="flex flex-row space-x-2">
+        <div className="form-container">
+            <div className="form-layout">
                 <form onSubmit={handleSubmit} className="flex-grow">
                     <Textarea
                         value={url}
                         onChange={handleChange}
                         placeholder="Paste video link"
-                        className="custom-textarea bg-[#f8f9fa]" />
+                        className="custom-textarea"
+                    />
                 </form>
                 <Button
                     variant="secondary"
                     type="submit"
-                    className="min-w-fit p-2"
+                    className="submit-button"
                     disabled={!url.trim() || isSending}
                     onClick={() => onSubmit(url)}
                 >

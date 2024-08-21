@@ -55,27 +55,3 @@ export class YouTubeApiClient {
       }
     }
   }
-
-
-// usage example
-
-// async function main() {
-//     const API_KEY = process.env.YOUTUBE_API_KEY;
-//     if (!API_KEY) {
-//       throw new Error('YouTube API key is not set in environment variables');
-//     }
-  
-//     const client = new YouTubeApiClient(API_KEY);
-//     const VIDEO_ID = 'eywYgAf27rs';
-  
-//     try {
-//       const videoInfo = await client.getVideoInfo(VIDEO_ID);
-//       console.log('Video Title:', videoInfo.title);
-//       console.log('Video Duration:', videoInfo.duration);
-//       console.log('Thumbnail URL:', videoInfo.thumbnailUrl);
-//     } catch (error) {
-//       console.error('Error:', error);
-//     }
-//   }
-  
-//   main();
