@@ -1,18 +1,41 @@
-import { useState } from 'react';
-import useMindTreeData from '@/hooks';
+//@ts-nocheck
+import { useState, useCallback } from 'react';
+import useMindTreeData from '@/hooks/useMindTree';
 import YouTubeVideoCard from '@/components/YoutubeVideoCard';
 import VideoTakewaysList from '@/components/VideoTakewaysList';
 import VideoUrlForm from '@/components/PromptInput';
+import { useProfileData } from '@/hooks/useProfileData';
 import '@/App.css'
 
 export function Home() {
   const { data, loading, error, fetchData } = useMindTreeData();
   const [videoUrl, setVideoUrl] = useState('');
+  const { addItem, isReady } = useProfileData({ dbName: 'mindtree', storeName: 'videos' });
 
-  const handleSubmit = (url: string) => {
+  const saveFetchedData = useCallback(async (fetchedData) => {
+    if (isReady && fetchedData) {
+      try {
+        await addItem(fetchedData);
+        console.log('Data saved successfully');
+      } catch (error) {
+        console.error('Error saving data:', error);
+      }
+    }
+  }, [isReady, addItem]);
+
+
+  const fetchAndSaveData = useCallback(async (url: string) => {
+    const fetchedData = await fetchData(url);
+    debugger;
+    if (fetchedData) {
+      await saveFetchedData(fetchedData);
+    }
+  }, [fetchData, saveFetchedData]);
+
+  const handleSubmit = useCallback((url: string) => {
     setVideoUrl(url);
-    fetchData(url);
-  };
+    fetchAndSaveData(url);
+  }, [fetchAndSaveData]);
 
   const extractVideoId = (url: string) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;

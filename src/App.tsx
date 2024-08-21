@@ -5,6 +5,7 @@ import HistoryPage from '@/pages/History';
 import Navbar from '@/components/Navbar';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import '@/App.css'
+import About from './pages/About';
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
           <Route path="/history" element={
             <ErrorBoundary>
               <ProtectedRoute element={<HistoryPage />} />
+            </ErrorBoundary>
+          } />
+          <Route path="/about" element={
+            <ErrorBoundary>
+              <About />
             </ErrorBoundary>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
