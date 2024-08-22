@@ -4,15 +4,19 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/Card';
 import { Skeleton } from '@/components/Skeleton';
 
 interface YouTubeVideoCardProps {
-  videoId: string;
+  videoId: string | null;
 }
+
+const Only: React.FC<{ if: boolean; children: React.ReactNode }> = ({ if: condition, children }) => {
+  return condition ? <>{children}</> : null;
+};
 
 const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
   const { videoInfo, loading, error } = useYouTubeVideoInfo(videoId);
 
-  if (loading) {
-    return (
-      <Card className="video-card">
+  return (
+    <Card className="video-card">
+      <Only if={loading}>
         <CardHeader>
           <Skeleton className="h-4 w-[250px]" />
         </CardHeader>
@@ -21,48 +25,37 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
           <Skeleton className="h-4 w-[200px] mt-4" />
           <Skeleton className="h-4 w-[150px] mt-2" />
         </CardContent>
-      </Card>
-    );
-  }
+      </Only>
 
-  if (error) {
-    return (
-      <Card className="video-card">
+      <Only if={!!error}>
         <CardHeader>
           <CardTitle>Error</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Failed to load video information: {error.message}</p>
+          <p>Failed to load video information: {error?.message}</p>
         </CardContent>
-      </Card>
-    );
-  }
+      </Only>
 
-  if (!videoInfo) {
-    return (
-      <Card className="video-card">
+      <Only if={!loading && !error && !videoInfo}>
         <CardHeader>
           <CardTitle>No Data</CardTitle>
         </CardHeader>
         <CardContent>
           <p>No video information available</p>
         </CardContent>
-      </Card>
-    );
-  }
+      </Only>
 
-  return (
-    <Card className="video-card">
-      <CardHeader>
-        <CardTitle className="video-card-title">{videoInfo.title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <a href={videoInfo.videoUrl} target="_blank" rel="noopener noreferrer">
-          <img src={videoInfo.thumbnailUrl} alt={videoInfo.title} className="video-thumbnail" />
-        </a>
-        <p className="video-card-content">Posted on: {videoInfo.datePosted}</p>
-        <p className="video-card-content">Author: {videoInfo.authorName}</p>
-      </CardContent>
+      <Only if={!loading && !error && !!videoInfo}>
+        <CardHeader>
+          <CardTitle className="video-card-title">{videoInfo?.title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <a href={videoInfo?.videoUrl} target="_blank" rel="noopener noreferrer">
+            <img src={videoInfo?.thumbnailUrl} alt={videoInfo?.title} className="video-thumbnail" />
+          </a>
+          <p className="video-card-content">Duration: {videoInfo?.duration}</p>
+        </CardContent>
+      </Only>
     </Card>
   );
 };

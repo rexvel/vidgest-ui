@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { useState, useCallback } from 'react';
 import useMindTreeData from '@/hooks/useMindTree';
 import YouTubeVideoCard from '@/components/YoutubeVideoCard';
@@ -7,8 +6,12 @@ import VideoUrlForm from '@/components/PromptInput';
 import { useProfileData } from '@/hooks/useProfileData';
 import '@/App.css'
 
+const Only: React.FC<{ if: boolean; children: React.ReactNode }> = ({ if: condition, children }) => {
+  return condition ? <>{children}</> : null;
+};
+
 export function Home() {
-  const { data, loading, error, fetchData } = useMindTreeData();
+  const { data, fetchData } = useMindTreeData();
   const [videoUrl, setVideoUrl] = useState('');
   const { addItem, isReady } = useProfileData({ dbName: 'mindtree', storeName: 'videos' });
 
@@ -26,7 +29,6 @@ export function Home() {
 
   const fetchAndSaveData = useCallback(async (url: string) => {
     const fetchedData = await fetchData(url);
-    debugger;
     if (fetchedData) {
       await saveFetchedData(fetchedData);
     }
@@ -50,14 +52,14 @@ export function Home() {
       <div className="home-content">
         <VideoUrlForm onSubmit={handleSubmit} initialUrl={videoUrl} />
         <div className="home-layout">
-          <div className="home-video-section">
-            {videoId && <YouTubeVideoCard videoId={videoId} />}
-            {loading && <p className="loading-text">Loading...</p>}
-            {error && <p className="error-text">Error: {error}</p>}
-          </div>
-          <div className="home-takeaways-section">
-            <VideoTakewaysList data={data} />
-          </div>
+          <Only if={!!videoId}>
+            <div className="home-video-section">
+              <YouTubeVideoCard videoId={videoId!} />
+            </div>
+          </Only>
+            <div className="home-takeaways-section">
+              <VideoTakewaysList data={data} />
+            </div>
         </div>
       </div>
     </div>

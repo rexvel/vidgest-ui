@@ -40,7 +40,6 @@ const HistoryPage: React.FC = () => {
             <CardTitle>{item?.title}</CardTitle>
           </CardHeader>
           <CardContent>
-            {/* <YouTubeVideoCard videoId={item.video.videoId} /> */}
             <div className="highlights">
               <h3>Highlights</h3>
               <ul>
