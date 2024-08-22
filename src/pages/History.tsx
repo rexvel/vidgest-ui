@@ -34,11 +34,10 @@ const HistoryPage: React.FC = () => {
 
   return (
     <div className="history-container">
-      <h1>Video History</h1>
       {historyItems.map((item) => (
-        <Card key={item.id} className="history-item">
+        <Card key={item?.id} className="history-item">
           <CardHeader>
-            <CardTitle>{item.title}</CardTitle>
+            <CardTitle>{item?.title}</CardTitle>
           </CardHeader>
           <CardContent>
             {/* <YouTubeVideoCard videoId={item.video.videoId} /> */}

@@ -63,13 +63,7 @@ const Navbar: React.FC = () => {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </SignedIn>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <button onClick={() => handleNavigation('/about')} className="text-2xl hover:text-blue-600 transition-colors duration-200">
-                    About
-                  </button>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+       
               <SignedOut>
                 <NavigationMenuItem>
                   <Button variant="outline" onClick={() => handleNavigation('/home')} className="text-2xl hover:bg-blue-600 hover:text-white transition-colors duration-200">
@@ -77,11 +71,17 @@ const Navbar: React.FC = () => {
                   </Button>
                 </NavigationMenuItem>
               </SignedOut>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <button onClick={() => handleNavigation('/about')} className="text-2xl hover:text-blue-600 transition-colors duration-200">
+                    About
+                  </button>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </ NavigationMenu >
         </div>
       </div>
-
      <MobileNavbar />
     </nav>
   );
