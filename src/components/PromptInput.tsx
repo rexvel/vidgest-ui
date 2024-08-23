@@ -8,7 +8,7 @@ interface VideoUrlFormProps {
     initialUrl: string;
 }
 
-const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl }) => {
+export const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl }) => {
     const [isSending, setIsSending] = useState(false);
     const [url, setUrl] = useState(initialUrl);
 
@@ -55,5 +55,3 @@ const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl }) => 
         </div>
     );
 };
-
-export default VideoUrlForm;

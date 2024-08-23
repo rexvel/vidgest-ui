@@ -17,7 +17,7 @@ const initialState: MindTreeState = {
   error: null,
 };
 
-const useMindTreeData = () => {
+export const useLoadedHighlights = () => {
   const [state, setState] = useState<MindTreeState>(initialState);
 
   const setLoading = useCallback((loading: boolean) => {
@@ -55,5 +55,3 @@ const useMindTreeData = () => {
 
   return { ...state, fetchData };
 };
-
-export default useMindTreeData;

@@ -19,7 +19,7 @@ interface VideoTakewaysListProps {
   data: VideoData | null | undefined;
 }
 
-const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ data }) => {
+export const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ data }) => {
   if (!data) {
     return <div className="no-data-message">No data available</div>;
   }
@@ -47,5 +47,3 @@ const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ data }) => {
     </div>
   );
 };
-
-export default VideoTakewaysList;

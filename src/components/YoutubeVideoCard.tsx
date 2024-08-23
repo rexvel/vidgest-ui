@@ -11,7 +11,7 @@ const Only: React.FC<{ if: boolean; children: React.ReactNode }> = ({ if: condit
   return condition ? <>{children}</> : null;
 };
 
-const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
+export const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
   const { videoInfo, loading, error } = useYouTubeVideoInfo(videoId);
 
   return (
@@ -59,5 +59,3 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
     </Card>
   );
 };
-
-export default YouTubeVideoCard;
