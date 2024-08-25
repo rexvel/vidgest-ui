@@ -1,9 +1,6 @@
 import { useState, useCallback } from 'react';
-import useMindTreeData from '@/hooks/useMindTree';
-import YouTubeVideoCard from '@/components/YoutubeVideoCard';
-import VideoTakewaysList from '@/components/VideoTakewaysList';
-import VideoUrlForm from '@/components/PromptInput';
-import { useProfileData } from '@/hooks/useProfileData';
+import { YouTubeVideoCard, VideoTakewaysList, VideoUrlForm } from '@/components';
+import { useLoadedHighlights, useProfileData } from '@/hooks';
 import '@/App.css'
 
 const Only: React.FC<{ if: boolean; children: React.ReactNode }> = ({ if: condition, children }) => {
@@ -11,7 +8,7 @@ const Only: React.FC<{ if: boolean; children: React.ReactNode }> = ({ if: condit
 };
 
 export function Home() {
-  const { data, fetchData } = useMindTreeData();
+  const { data, fetchData } = useLoadedHighlights();
   const [videoUrl, setVideoUrl] = useState('');
   const { addItem, isReady } = useProfileData({ dbName: 'mindtree', storeName: 'videos' });
 
@@ -57,9 +54,9 @@ export function Home() {
               <YouTubeVideoCard videoId={videoId!} />
             </div>
           </Only>
-            <div className="home-takeaways-section">
-              <VideoTakewaysList data={data} />
-            </div>
+          <div className="home-takeaways-section">
+            <VideoTakewaysList data={data} />
+          </div>
         </div>
       </div>
     </div>
