@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
-import { YouTubeVideoCard, VideoTakewaysList, VideoUrlForm } from '@/components';
+import { YouTubeVideoCard, VideoUrlForm } from '@/components';
+import { VideoTakeawaysList } from '@/components';
 import { useLoadedHighlights, useProfileData } from '@/hooks';
 import '@/App.css'
 
@@ -44,6 +45,8 @@ export function Home() {
 
   const videoId = extractVideoId(videoUrl);
 
+  console.log(`data`, data)
+
   return (
     <div className="home-container">
       <div className="home-content">
@@ -55,7 +58,7 @@ export function Home() {
             </div>
           </Only>
           <div className="home-takeaways-section">
-            <VideoTakewaysList data={data} />
+            <VideoTakeawaysList data={data} />
           </div>
         </div>
       </div>
