@@ -2,8 +2,8 @@ import { useState, useCallback } from 'react';
 import { YouTubeVideoCard, VideoUrlForm } from '@/components';
 import { VideoTakeawaysList } from '@/components';
 import { useLoadedHighlights, useProfileData } from '@/hooks';
-import '@/App.css'
 import Only from '@/components/Only';
+import '@/App.css'
 
 
 export function Home() {

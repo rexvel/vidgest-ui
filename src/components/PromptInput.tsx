@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { Textarea } from "@/components/Textarea";
+import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { Loader2 as Loader } from "lucide-react";
 
@@ -28,9 +28,19 @@ export const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl
         setIsSending(false);
     }, [url, onSubmit]);
 
+    const buttonText = isSending ? <Loader className="h-4 w-4 animate-spin" /> : 'Create note';
+
+    const handleButtonClick = useCallback(() => {
+        if (!isSending && url.trim()) {
+            setIsSending(true);
+            onSubmit(url);
+            setIsSending(false);
+        }
+    }, [isSending, url, onSubmit]);
+
     return (
         <div className="form-container transition-opacity duration-400">
-            <div className="form-layout flex items-center space-x-2">
+            <div className="form-layout flex space-x-2">
                 <Button
                     variant="outline"
                     onClick={onCancel}
@@ -39,7 +49,7 @@ export const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl
                     Cancel
                 </Button>
                 <form onSubmit={handleSubmit} className="flex-grow">
-                    <Textarea
+                    <Input
                         value={url}
                         onChange={handleChange}
                         placeholder="Paste video link"
@@ -48,16 +58,11 @@ export const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl
                 </form>
                 <Button
                     variant="secondary"
-                    type="submit"
-                    className="cursor-pointer w-[130px] h-[52px] px-2 border-0 rounded-[22px] bg-[#d1d1d6] text-white text-[14px] font-montserrat font-extrabold leading-[20px] outline-none"
+                    type="button" // Changed from 'submit' to 'button'
                     disabled={!url.trim() || isSending}
-                    onClick={() => onSubmit(url)}
+                    onClick={handleButtonClick}
                 >
-                    {isSending ? (
-                        <Loader className="h-4 w-4 animate-spin" />
-                    ) : (
-                        'Create note'
-                    )}
+                    {buttonText}
                 </Button>
             </div>
         </div>

@@ -5,8 +5,8 @@ import HistoryPage from '@/pages/History';
 import Sidebar from '@/components/Sidebar';
 import Header from '@/components/Header';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import '@/App.css'
 import About from './pages/About';
+import '@/App.css'
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <ErrorBoundary>
         <div className="flex flex-col min-h-screen">
           <Header />
-          <div className="flex flex-grow bg-gray-100 pt-16"> {/* Add top padding to account for fixed header */}
+          <div className="flex flex-grow bg-gray-100 pt-16">
             <Sidebar />
             <main className="flex-1 ml-64 p-8">
               <Routes>
