@@ -34,7 +34,7 @@ const HistoryPage: React.FC = () => {
 
   return (
     <div className="history-container">
-      {historyItems.map((item) => (
+      {historyItems && historyItems.map((item) => (
         <Card key={item?.id} className="history-item">
           <CardHeader>
             <CardTitle>{item?.title}</CardTitle>
@@ -43,7 +43,7 @@ const HistoryPage: React.FC = () => {
             <div className="highlights">
               <h3>Highlights</h3>
               <ul>
-                {item.highlights.map((highlight, index) => (
+                {item.highlights && item.highlights.map((highlight, index) => (
                   <li key={index}>{highlight}</li>
                 ))}
               </ul>

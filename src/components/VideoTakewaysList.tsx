@@ -57,13 +57,13 @@ const VideoContentDisplay: React.FC<VideoContentDisplayProps> = ({ content }) =>
 
 export const VideoTakeawaysList: React.FC<VideoTakeawaysListProps> = ({ data }) => {
   if (!data) {
-    return <div className="no-data-message">No data available</div>;
+    return <div className="no-data-message"></div>;
   }
 
   const { steps } = data;
 
   if (!steps) {
-    return <div className="no-data-message">No data available</div>;
+    return <div className="no-data-message"></div>;
   }
 
   const outputObject = {
