@@ -6,12 +6,11 @@ import '@/App.css'
 import Only from '@/components/Only';
 
 
-
 export function Home() {
   const { data, fetchData } = useLoadedHighlights();
   const [videoUrl, setVideoUrl] = useState('');
   const [showForm, setShowForm] = useState(false);
-  const { addItem, isReady } = useProfileData({ dbName: 'mindtree', storeName: 'videos' });
+  const { addItem, isReady } = useProfileData({ dbName: 'profileData', storeName: 'videos' });
 
   const saveFetchedData = useCallback(async (fetchedData) => {
     if (isReady && fetchedData) {
@@ -49,8 +48,6 @@ export function Home() {
   };
 
   const videoId = extractVideoId(videoUrl);
-
-  console.log(`data`, data)
 
   return (
     <div className="home-container">
