@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     <header className="fixed top-0 left-0 right-0 bg-white z-10 shadow-sm">
       <div className="w-full flex justify-between items-center py-4 px-6">
@@ -14,4 +14,3 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;

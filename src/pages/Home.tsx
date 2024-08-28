@@ -1,8 +1,6 @@
 import { useState, useCallback } from 'react';
-import { YouTubeVideoCard, VideoUrlForm } from '@/components';
-import { VideoTakeawaysList } from '@/components';
+import { YouTubeVideoCard, VideoUrlForm, VideoTakeawaysList, Only } from '@/components';
 import { useLoadedHighlights, useProfileData } from '@/hooks';
-import Only from '@/components/Only';
 import '@/App.css'
 
 
@@ -62,14 +60,14 @@ export function Home() {
         </div>
 
         <div className="relative">
-          <div 
+          <div
             className={`transition-opacity duration-400 ${showForm ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           >
-            <div 
+            <div
               className="bg-white rounded-[32px] w-[344px] h-[117px] flex items-center p-4 mb-4 cursor-pointer"
               onClick={() => setShowForm(true)}
             >
-              <div 
+              <div
                 className="w-[73px] h-[72px] bg-cover bg-center bg-no-repeat mr-4"
                 style={{
                   backgroundImage: `url(https://assets.api.uizard.io/api/cdn/stream/21dd2cdf-057f-4908-91f6-3ace53f43e3b.png)`
@@ -81,7 +79,7 @@ export function Home() {
             </div>
           </div>
 
-          <div 
+          <div
             className={`transition-opacity duration-400 absolute top-0 left-0 w-full ${showForm ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
           >
             <VideoUrlForm onSubmit={handleSubmit} initialUrl={videoUrl} onCancel={handleCancel} />

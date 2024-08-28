@@ -13,7 +13,7 @@ interface VideoData {
   key_insights: string[];
 }
 
-const HistoryPage: React.FC = () => {
+export const HistoryPage: React.FC = () => {
   const { getAllItems, isReady } = useProfileData<VideoData>({ dbName: 'mindtree', storeName: 'videos' });
   const [historyItems, setHistoryItems] = useState<VideoData[]>([]);
 
@@ -54,5 +54,3 @@ const HistoryPage: React.FC = () => {
     </div>
   );
 };
-
-export default HistoryPage;

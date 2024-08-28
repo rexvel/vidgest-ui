@@ -10,7 +10,7 @@ import {
 } from "@/components/NavigationMenu";
 import { useMenuState } from '@/hooks/useMenuState';
 
-const Sidebar: React.FC = () => {
+export const Sidebar: React.FC = () => {
   const { isOpen, setIsOpen, toggleMenu } = useMenuState();
   const navigate = useNavigate();
 
@@ -69,5 +69,3 @@ const Sidebar: React.FC = () => {
       </aside>
   );
 }
-
-export default Sidebar;

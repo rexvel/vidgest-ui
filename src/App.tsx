@@ -1,8 +1,5 @@
-import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Sidebar from '@/components/Sidebar';
-import Header from '@/components/Header';
-import ErrorBoundary from '@/components/ErrorBoundary';
+import { ErrorBoundary, Header, Sidebar} from '@/components';
 import { AppRouter } from '@/router/AppRouter';
 import '@/App.css'
 
@@ -11,7 +8,7 @@ function App() {
     <Router>
       <ErrorBoundary>
         <div className="flex flex-col min-h-screen">
-          <Header />
+          <Header />      
           <div className="flex flex-grow bg-gray-100 pt-16">
             <Sidebar />
             <main className="flex-1 ml-64 p-8">
@@ -24,4 +21,4 @@ function App() {
   )
 }
 
-export default App
+export default App  
