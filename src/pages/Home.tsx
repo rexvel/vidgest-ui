@@ -3,10 +3,9 @@ import { YouTubeVideoCard, VideoUrlForm } from '@/components';
 import { VideoTakeawaysList } from '@/components';
 import { useLoadedHighlights, useProfileData } from '@/hooks';
 import '@/App.css'
+import Only from '@/components/Only';
 
-const Only: React.FC<{ if: boolean; children: React.ReactNode }> = ({ if: condition, children }) => {
-  return condition ? <>{children}</> : null;
-};
+
 
 export function Home() {
   const { data, fetchData } = useLoadedHighlights();
