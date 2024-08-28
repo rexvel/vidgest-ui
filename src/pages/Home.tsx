@@ -1,16 +1,16 @@
 import { useState, useCallback } from 'react';
-import { YouTubeVideoCard, VideoTakewaysList, VideoUrlForm } from '@/components';
+import { YouTubeVideoCard, VideoUrlForm } from '@/components';
+import { VideoTakeawaysList } from '@/components';
 import { useLoadedHighlights, useProfileData } from '@/hooks';
+import Only from '@/components/Only';
 import '@/App.css'
 
-const Only: React.FC<{ if: boolean; children: React.ReactNode }> = ({ if: condition, children }) => {
-  return condition ? <>{children}</> : null;
-};
 
 export function Home() {
   const { data, fetchData } = useLoadedHighlights();
   const [videoUrl, setVideoUrl] = useState('');
-  const { addItem, isReady } = useProfileData({ dbName: 'mindtree', storeName: 'videos' });
+  const [showForm, setShowForm] = useState(false);
+  const { addItem, isReady } = useProfileData({ dbName: 'profileData', storeName: 'videos' });
 
   const saveFetchedData = useCallback(async (fetchedData) => {
     if (isReady && fetchedData) {
@@ -34,7 +34,12 @@ export function Home() {
   const handleSubmit = useCallback((url: string) => {
     setVideoUrl(url);
     fetchAndSaveData(url);
+    setShowForm(false);
   }, [fetchAndSaveData]);
+
+  const handleCancel = useCallback(() => {
+    setShowForm(false);
+  }, []);
 
   const extractVideoId = (url: string) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -47,7 +52,42 @@ export function Home() {
   return (
     <div className="home-container">
       <div className="home-content">
-        <VideoUrlForm onSubmit={handleSubmit} initialUrl={videoUrl} />
+        <div className="mb-4">
+          <div className="text-[#030303] text-[20px] font-montserrat font-bold leading-[30px] mb-2">
+            New note
+          </div>
+          <div className="text-[#8e8e93] text-[15px] font-montserrat font-bold leading-[26px] mb-4">
+            Record audio, upload audio, or use a YouTube URL
+          </div>
+        </div>
+
+        <div className="relative">
+          <div 
+            className={`transition-opacity duration-400 ${showForm ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          >
+            <div 
+              className="bg-white rounded-[32px] w-[344px] h-[117px] flex items-center p-4 mb-4 cursor-pointer"
+              onClick={() => setShowForm(true)}
+            >
+              <div 
+                className="w-[73px] h-[72px] bg-cover bg-center bg-no-repeat mr-4"
+                style={{
+                  backgroundImage: `url(https://assets.api.uizard.io/api/cdn/stream/21dd2cdf-057f-4908-91f6-3ace53f43e3b.png)`
+                }}
+              />
+              <div className="text-[#030303] text-[20px] font-montserrat font-bold leading-[29px]">
+                YouTube video
+              </div>
+            </div>
+          </div>
+
+          <div 
+            className={`transition-opacity duration-400 absolute top-0 left-0 w-full ${showForm ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+          >
+            <VideoUrlForm onSubmit={handleSubmit} initialUrl={videoUrl} onCancel={handleCancel} />
+          </div>
+        </div>
+
         <div className="home-layout">
           <Only if={!!videoId}>
             <div className="home-video-section">
@@ -55,7 +95,7 @@ export function Home() {
             </div>
           </Only>
           <div className="home-takeaways-section">
-            <VideoTakewaysList data={data} />
+            <VideoTakeawaysList data={data} />
           </div>
         </div>
       </div>
