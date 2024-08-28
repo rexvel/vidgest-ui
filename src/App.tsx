@@ -1,11 +1,9 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { Home } from '@/pages/Home';
-import HistoryPage from '@/pages/History';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Sidebar from '@/components/Sidebar';
 import Header from '@/components/Header';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import About from './pages/About';
+import { AppRouter } from '@/router/AppRouter';
 import '@/App.css'
 
 function App() {
@@ -17,24 +15,7 @@ function App() {
           <div className="flex flex-grow bg-gray-100 pt-16">
             <Sidebar />
             <main className="flex-1 ml-64 p-8">
-              <Routes>
-                <Route path="/home" element={
-                  <ErrorBoundary>
-                    <ProtectedRoute element={<Home />} />
-                  </ErrorBoundary>
-                } />
-                <Route path="/history" element={
-                  <ErrorBoundary>
-                    <ProtectedRoute element={<HistoryPage />} />
-                  </ErrorBoundary>
-                } />
-                <Route path="/about" element={
-                  <ErrorBoundary>
-                    <About />
-                  </ErrorBoundary>
-                } />
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
+              <AppRouter />
             </main>
           </div>
         </div>
