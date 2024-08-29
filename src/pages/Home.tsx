@@ -1,16 +1,16 @@
 import { useState, useCallback } from 'react';
-import { YouTubeVideoCard, VideoUrlForm, VideoTakeawaysList, Only } from '@/components';
+import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only } from '@/components';
 import { useLoadedHighlights, useProfileData } from '@/hooks';
 import '@/App.css'
 import { useMobileForm } from '@/hooks/useMobileForm';
 
-
 export function Home() {
-  const { data, fetchData } = useLoadedHighlights();
+  const { data, fetchData, removeHighlight } = useLoadedHighlights();
   const [videoUrl, setVideoUrl] = useState('');
   const [showForm, setShowForm] = useState(false);
   const { addItem, isReady } = useProfileData({ dbName: 'profileData', storeName: 'videos' });
   const { setIsMobileFormOpen } = useMobileForm();
+
   const saveFetchedData = useCallback(async (fetchedData) => {
     if (isReady && fetchedData) {
       try {
@@ -21,7 +21,6 @@ export function Home() {
       }
     }
   }, [isReady, addItem]);
-
 
   const fetchAndSaveData = useCallback(async (url: string) => {
     const fetchedData = await fetchData(url);
@@ -101,7 +100,10 @@ export function Home() {
             </div>
           </Only>
           <div className="home-takeaways-section">
-            <VideoTakeawaysList data={data} />
+            <VideoTakewaysList
+              topics={data.topics}
+              onRemoveHighlight={removeHighlight}
+            />
           </div>
         </div>
       </div>

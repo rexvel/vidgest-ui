@@ -67,5 +67,10 @@ export const useIndexedDB = <T>({ dbName, storeName, version = 1 }: UseIndexedDB
 
   const getAll = useCallback(() => performTransaction('readonly', (store) => store.getAll()), [performTransaction]);
 
-  return { add, getAll, isReady };
+  const remove = useCallback(
+    (id: IDBValidKey) => performTransaction('readwrite', (store) => store.delete(id)),
+    [performTransaction],
+  );
+
+  return { add, getAll, remove, isReady };
 };

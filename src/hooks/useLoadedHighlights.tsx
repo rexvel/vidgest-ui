@@ -29,7 +29,7 @@ export const useLoadedHighlights = () => {
   }, []);
 
   const setData = useCallback((data: Topic[]) => {
-    setState(prevState => ({ ...prevState, data, loading: false, error: null }));
+    setState(prevState => ({ ...prevState, data: { topics: data }, loading: false, error: null }));
   }, []);
 
   const fetchData = useCallback(async (url: string) => {
@@ -53,5 +53,26 @@ export const useLoadedHighlights = () => {
     }
   }, [setLoading, setError, setData]);
 
-  return { ...state, fetchData };
+  const removeHighlight = useCallback((topicId: string, highlightId: string) => {
+    setState(prevState => {
+      if (!prevState.data.topics) return prevState;
+
+      const updatedTopics = prevState.data.topics.map(topic => {
+        if (topic.id === topicId) {
+          return {
+            ...topic,
+            highlights: topic.highlights.filter(highlight => highlight.id !== highlightId)
+          };
+        }
+        return topic;
+      }).filter(topic => topic.highlights.length > 0);
+
+      return {
+        ...prevState,
+        data: { topics: updatedTopics }
+      };
+    });
+  }, []);
+
+  return { ...state, fetchData, removeHighlight };
 };
