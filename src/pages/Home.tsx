@@ -1,8 +1,7 @@
 import { useState, useCallback } from 'react';
 import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only } from '@/components';
-import { useLoadedHighlights, useProfileData } from '@/hooks';
+import { useLoadedHighlights, useProfileData, useMobileForm } from '@/hooks';
 import '@/App.css'
-import { useMobileForm } from '@/hooks/useMobileForm';
 
 export function Home() {
   const { data, fetchData, removeHighlight } = useLoadedHighlights();
