@@ -1,8 +1,7 @@
 import { useState, useCallback } from 'react';
 import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only } from '@/components';
-import { useLoadedHighlights, useProfileData } from '@/hooks';
+import { useLoadedHighlights, useProfileData, useMobileForm } from '@/hooks';
 import '@/App.css'
-import { useMobileForm } from '@/hooks/useMobileForm';
 
 export function Home() {
   const { data, fetchData, removeHighlight } = useLoadedHighlights();
@@ -47,6 +46,8 @@ export function Home() {
 
   const videoId = extractVideoId(videoUrl);
 
+  // console.log(data.topics)
+
   return (
     <div className="home-container">
       <div className="home-content">
@@ -66,7 +67,7 @@ export function Home() {
             <div
               className="bg-white rounded-[32px] w-[344px] h-[117px] flex items-center p-4 mb-4 cursor-pointer"
               onClick={() => {
-                const isMobile = window.innerWidth <= 450; // iPhone 8 Plus width as a reference
+                const isMobile = window.innerWidth <= 450;
                 if (isMobile) {
                   setIsMobileFormOpen(true);
                 } else {
