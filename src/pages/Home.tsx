@@ -46,6 +46,8 @@ export function Home() {
 
   const videoId = extractVideoId(videoUrl);
 
+  // console.log(data.topics)
+
   return (
     <div className="home-container">
       <div className="home-content">
