@@ -58,7 +58,7 @@ export const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl
                 </form>
                 <Button
                     variant="secondary"
-                    type="button" // Changed from 'submit' to 'button'
+                    type="button"
                     disabled={!url.trim() || isSending}
                     onClick={handleButtonClick}
                 >

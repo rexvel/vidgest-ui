@@ -37,7 +37,7 @@ export const HistoryPage: React.FC = () => {
     if (id) {
       try {
         await removeItem(id);
-        await fetchHistoryItems(); // Refresh the list after removal
+        await fetchHistoryItems();
       } catch (error) {
         console.error('Error removing history item:', error);
       }

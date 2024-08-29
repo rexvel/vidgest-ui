@@ -66,7 +66,7 @@ export function Home() {
             <div
               className="bg-white rounded-[32px] w-[344px] h-[117px] flex items-center p-4 mb-4 cursor-pointer"
               onClick={() => {
-                const isMobile = window.innerWidth <= 450; // iPhone 8 Plus width as a reference
+                const isMobile = window.innerWidth <= 450;
                 if (isMobile) {
                   setIsMobileFormOpen(true);
                 } else {
