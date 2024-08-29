@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { YouTubeVideoCard, VideoUrlForm, VideoTakeawaysList, Only } from '@/components';
 import { useLoadedHighlights, useProfileData } from '@/hooks';
 import '@/App.css'
+import { useMobileForm } from '@/hooks/useMobileForm';
 
 
 export function Home() {
@@ -9,7 +10,7 @@ export function Home() {
   const [videoUrl, setVideoUrl] = useState('');
   const [showForm, setShowForm] = useState(false);
   const { addItem, isReady } = useProfileData({ dbName: 'profileData', storeName: 'videos' });
-
+  const { setIsMobileFormOpen } = useMobileForm();
   const saveFetchedData = useCallback(async (fetchedData) => {
     if (isReady && fetchedData) {
       try {
@@ -65,7 +66,14 @@ export function Home() {
           >
             <div
               className="bg-white rounded-[32px] w-[344px] h-[117px] flex items-center p-4 mb-4 cursor-pointer"
-              onClick={() => setShowForm(true)}
+              onClick={() => {
+                const isMobile = window.innerWidth <= 450; // iPhone 8 Plus width as a reference
+                if (isMobile) {
+                  setIsMobileFormOpen(true);
+                } else {
+                  setShowForm(true);
+                }
+              }}
             >
               <div
                 className="w-[73px] h-[72px] bg-cover bg-center bg-no-repeat mr-4"

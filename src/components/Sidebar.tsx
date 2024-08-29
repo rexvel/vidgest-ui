@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import { Button } from "@/components";
 import {
   NavigationMenu,
@@ -20,52 +20,41 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-      <aside className="fixed ml-16 top-0 left-0 flex flex-col mt-24 p-4 pt-16">
-        <div className="flex items-center justify-between mb-8">
-          <SignedIn>
-            <UserButton
-              appearance={{
-                elements: {
-                  avatarBox: "h-10 w-10"
-                }
-              }}
-            />
-          </SignedIn>
-        </div>
-        <NavigationMenu orientation="vertical" className="flex-grow">
-          <NavigationMenuList className="flex flex-col space-y-4">
-            <SignedIn>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <button onClick={() => handleNavigation('/home')} className="text-xl">
-                    Home
-                  </button>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <button onClick={() => handleNavigation('/history')} className="text-xl">
-                    History
-                  </button>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </SignedIn>
-            <SignedOut>
-              <NavigationMenuItem>
-                <Button variant="outline" onClick={() => handleNavigation('/home')} className="">
-                  Sign In
-                </Button>
-              </NavigationMenuItem>
-            </SignedOut>
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <button onClick={() => handleNavigation('/about')} className="text-xl hover:text-blue-600 transition-colors duration-200">
-                  About
-                </button>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </aside>
+    <aside className="w-full md:w-64 xl:w-72 2xl:w-80 3xl:w-96 4xl:w-112 flex-shrink-0 md:pt-8">
+    <NavigationMenu orientation="horizontal" className="md:orientation-vertical">
+      <NavigationMenuList className="flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-4 xl:space-y-6 2xl:space-y-8 overflow-x-auto md:overflow-x-visible py-4 md:py-0">
+        <SignedIn>
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <button onClick={() => handleNavigation('/home')} className="group flex items-center md:items-start gap-3 rounded-full p-2 md:p-1 text-coco-grey hover:text-coco-black whitespace-nowrap">
+                <span className="text-sm md:text-base font-bold group-hover:text-coco-black group-data-[active]:text-coco-black">Home</span>
+              </button>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <button onClick={() => handleNavigation('/history')} className="group flex items-center md:items-start gap-3 rounded-full p-2 md:p-1 text-coco-grey hover:text-coco-black whitespace-nowrap">
+                <span className="text-sm md:text-base font-bold group-hover:text-coco-black group-data-[active]:text-coco-black">History</span>
+              </button>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        </SignedIn>
+        <SignedOut>
+          <NavigationMenuItem>
+            <Button variant="outline" onClick={() => handleNavigation('/home')} className="group flex items-center md:items-start gap-3 rounded-full p-2 md:p-1 text-coco-grey hover:text-coco-black whitespace-nowrap">
+              <span className="text-sm md:text-base font-bold group-hover:text-coco-black group-data-[active]:text-coco-black">Sign In</span>
+            </Button>
+          </NavigationMenuItem>
+        </SignedOut>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <button onClick={() => handleNavigation('/about')} className="group flex items-center md:items-start gap-3 rounded-full p-2 md:p-1 text-coco-grey hover:text-coco-black whitespace-nowrap">
+              <span className="text-sm md:text-base font-bold group-hover:text-coco-black group-data-[active]:text-coco-black">About</span>
+            </button>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  </aside>
   );
 }
