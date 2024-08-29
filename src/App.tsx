@@ -7,13 +7,15 @@ function App() {
   return (
     <Router>
       <ErrorBoundary>
-        <div className="flex flex-col min-h-screen">
-          <Header />      
-          <div className="flex flex-grow bg-gray-100 pt-16">
-            <Sidebar />
-            <main className="flex-1 ml-64 p-8">
-              <AppRouter />
-            </main>
+        <div className="flex flex-col min-h-screen bg-gray-50">
+          <Header />
+          <div className="flex-grow">
+            <div className="container mx-auto flex max-w-[1400px] px-4 xl:px-6">
+              <Sidebar />
+              <main className="flex-1 pl-8 pt-8">
+                <AppRouter />
+              </main>
+            </div>
           </div>
         </div>
       </ErrorBoundary>
@@ -21,4 +23,4 @@ function App() {
   )
 }
 
-export default App  
+export default App
