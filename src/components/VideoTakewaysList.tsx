@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/Card"
@@ -36,7 +35,7 @@ export const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ topics, su
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {topics?.topics.map((topic, index) => (
+          {topics.map((topic, index) => (
             <div key={index} className="mb-4">
               <h3 className="text-lg font-semibold mb-2">{topic.title}</h3>
               <ul className="list-disc pl-5 space-y-1">
@@ -47,14 +46,16 @@ export const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ topics, su
             </div>
           ))}
           <div className="mt-6">
-            {/* <h3 className="text-lg font-semibold mb-2">Summary</h3> */}
-            {/* <p className="mb-2">{topics?.summary}</p> */}
+            <h3 className="text-lg font-semibold mb-2">Summary</h3>
+            <p className="mb-2">{summary.description}</p>
+            <ul className="list-disc pl-5 space-y-1">
+              {summary['bullet-points'].map((point, index) => (
+                <li key={index}>{point}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </CardContent>
-      {/* <CardFooter>
-        <p className="text-sm text-gray-500">Generated takeaways from video content</p>
-      </CardFooter> */}
     </Card>
   );
 };

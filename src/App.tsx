@@ -1,17 +1,10 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ErrorBoundary, Header, Sidebar } from '@/components';
 import { AppRouter } from '@/router/AppRouter';
-import { MobileFormPortal } from '@/components/MobileFormPortal';
-import { MobileFormProvider, useMobileForm } from '@/hooks/useMobileForm';
+import { MobileFormProvider } from '@/hooks/useMobileForm';
+import { ErrorBoundary, Header, Sidebar } from '@/components';
 import '@/App.css'
 
 function AppContent() {
-  const { isMobileFormOpen, setIsMobileFormOpen } = useMobileForm();
-
-  const handleMobileFormSubmit = (url: string) => {
-    console.log('Submitted URL:', url);
-    setIsMobileFormOpen(false);
-  };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -24,11 +17,6 @@ function AppContent() {
           </main>
         </div>
       </div>
-      <MobileFormPortal
-        isOpen={isMobileFormOpen}
-        onClose={() => setIsMobileFormOpen(false)}
-        onSubmit={handleMobileFormSubmit}
-      />
     </div>
   );
 }
