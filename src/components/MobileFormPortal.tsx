@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Button } from '@/components/Button';
+import { useVideoData } from '@/hooks';
 
 interface MobileFormPortalProps {
   isOpen: boolean;
@@ -11,6 +12,9 @@ interface MobileFormPortalProps {
 export const MobileFormPortal: React.FC<MobileFormPortalProps> = ({ isOpen, onClose, onSubmit }) => {
   const [url, setUrl] = useState('');
   const overlayRef = useRef<HTMLDivElement>(null);
+
+  const { fetchAndSaveData,  } = useVideoData();
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,6 +37,7 @@ export const MobileFormPortal: React.FC<MobileFormPortalProps> = ({ isOpen, onCl
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(url);
+    fetchAndSaveData(url);
     setUrl('');
   };
 
@@ -42,7 +47,7 @@ export const MobileFormPortal: React.FC<MobileFormPortalProps> = ({ isOpen, onCl
         <h2 className="text-xl font-bold">Generate Summary</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            type="url"
+            // type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="Enter YouTube URL"

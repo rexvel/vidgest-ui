@@ -1,38 +1,26 @@
 import { useState, useCallback } from 'react';
 import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only } from '@/components';
-import { useLoadedHighlights, useProfileData, useMobileForm } from '@/hooks';
+import { useVideoData, useMobileForm } from '@/hooks';
 import '@/App.css'
+import { MobileFormPortal } from '@/components/MobileFormPortal';
 
 export function Home() {
-  const { data, fetchData, removeHighlight } = useLoadedHighlights();
+  const { data, fetchAndSaveData } = useVideoData();
   const [videoUrl, setVideoUrl] = useState('');
   const [showForm, setShowForm] = useState(false);
-  const { addItem, isReady } = useProfileData({ dbName: 'profileData', storeName: 'videos' });
-  const { setIsMobileFormOpen } = useMobileForm();
+  const { isMobileFormOpen, setIsMobileFormOpen } = useMobileForm();
 
-  const saveFetchedData = useCallback(async (fetchedData) => {
-    if (isReady && fetchedData) {
-      try {
-        await addItem(fetchedData);
-        console.log('Data saved successfully');
-      } catch (error) {
-        console.error('Error saving data:', error);
-      }
-    }
-  }, [isReady, addItem]);
-
-  const fetchAndSaveData = useCallback(async (url: string) => {
-    const fetchedData = await fetchData(url);
-    if (fetchedData) {
-      await saveFetchedData(fetchedData);
-    }
-  }, [fetchData, saveFetchedData]);
-
-  const handleSubmit = useCallback((url: string) => {
+  const handleSubmit = useCallback(async (url: string) => {
     setVideoUrl(url);
-    fetchAndSaveData(url);
+    await fetchAndSaveData(url);
     setShowForm(false);
   }, [fetchAndSaveData]);
+
+  const handleMobileFormSubmit = useCallback(async (url: string) => {
+    setVideoUrl(url);
+    await fetchAndSaveData(url);
+    setIsMobileFormOpen(false);
+  }, [fetchAndSaveData, setIsMobileFormOpen]);
 
   const handleCancel = useCallback(() => {
     setShowForm(false);
@@ -45,8 +33,6 @@ export function Home() {
   };
 
   const videoId = extractVideoId(videoUrl);
-
-  // console.log(data.topics)
 
   return (
     <div className="home-container">
@@ -102,12 +88,17 @@ export function Home() {
           </Only>
           <div className="home-takeaways-section">
             <VideoTakewaysList
-              topics={data.topics}
-              onRemoveHighlight={removeHighlight}
+              topics={data?.topics?.topics || []}
+              summary={data?.summary || { description: '', 'bullet-points': [] }}
             />
           </div>
         </div>
       </div>
+      <MobileFormPortal
+        isOpen={isMobileFormOpen}
+        onClose={() => setIsMobileFormOpen(false)}
+        onSubmit={handleMobileFormSubmit}
+      />
     </div>
   )
 }
