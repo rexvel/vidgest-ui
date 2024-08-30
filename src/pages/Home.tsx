@@ -5,10 +5,11 @@ import '@/App.css'
 import { MobileFormPortal } from '@/components/MobileFormPortal';
 
 export function Home() {
-  const { data, fetchAndSaveData, removeHighlight } = useVideoData();
+  const { data, fetchAndSaveData } = useVideoData();
   const [videoUrl, setVideoUrl] = useState('');
   const [showForm, setShowForm] = useState(false);
   const { isMobileFormOpen, setIsMobileFormOpen } = useMobileForm();
+
   const handleSubmit = useCallback(async (url: string) => {
     setVideoUrl(url);
     await fetchAndSaveData(url);
@@ -32,8 +33,6 @@ export function Home() {
   };
 
   const videoId = extractVideoId(videoUrl);
-
-  // console.log(data.topics)
 
   return (
     <div className="home-container">
