@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/Card"
 
-interface Topic {
+export interface Topic {
   title: string;
   points: string[];
 }

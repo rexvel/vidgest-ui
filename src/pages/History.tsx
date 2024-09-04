@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useProfileData } from '@/hooks/useProfileData';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
-import { Button } from "@/components/Button";
+import { Card, CardContent, CardHeader, CardTitle, Button } from "@/components";
 
 interface VideoData {
   id?: string;
@@ -15,10 +14,10 @@ interface VideoData {
 }
 
 export const HistoryPage: React.FC = () => {
-  const { getAllItems, removeItem, isReady } = useProfileData<VideoData>({ dbName: 'mindtree', storeName: 'videos' });
+  const { getAllItems, removeItem, isReady } = useProfileData<VideoData>({ dbName: 'vidgest', storeName: 'videos' });
   const [historyItems, setHistoryItems] = useState<VideoData[]>([]);
 
-  const fetchHistoryItems = async () => {
+  const fetchHistoryItems = useCallback(async () => {
     if (isReady) {
       try {
         const items = await getAllItems();
@@ -27,17 +26,19 @@ export const HistoryPage: React.FC = () => {
         console.error('Error fetching history items:', error);
       }
     }
-  };
+  }, [isReady, getAllItems]);
 
   useEffect(() => {
     fetchHistoryItems();
-  }, [isReady, getAllItems]);
+  }, [isReady, getAllItems, fetchHistoryItems]);
 
   const handleRemove = async (id: string) => {
     if (id) {
       try {
-        await removeItem(id);
-        await fetchHistoryItems();
+        Promise.all([
+          removeItem(id),
+          fetchHistoryItems()
+        ]);
       } catch (error) {
         console.error('Error removing history item:', error);
       }
