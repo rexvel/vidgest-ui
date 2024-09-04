@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { YouTubeApiClient } from '@/youtube-api';
+import { YouTubeApiClient } from '@/api/youtube-client';
 
 interface ExtendedVideoInfo {
   title: string;
@@ -24,14 +24,18 @@ const getApiClient = () => {
 console.log(import.meta.env)
 
 export const useYouTubeVideoInfo = (videoId: string) => {
-  if (!videoId) {
-    return { videoInfo: null, loading: false, error: null };
-  }
   const [videoInfo, setVideoInfo] = useState<ExtendedVideoInfo | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    if (!videoId) {
+      setVideoInfo(null);
+      setLoading(false);
+      setError(null);
+      return;
+    }
+
     const fetchVideoInfo = async () => {
       try {
         setLoading(true);
@@ -41,7 +45,6 @@ export const useYouTubeVideoInfo = (videoId: string) => {
 
         console.log(`info`, info);
 
-        
         const extendedInfo: ExtendedVideoInfo = {
           ...info,
           videoUrl: `https://www.youtube.com/watch?v=${videoId}`
