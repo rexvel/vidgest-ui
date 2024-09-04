@@ -5,7 +5,7 @@ export function useVideoData() {
   const { addItem, isReady } = useProfileData({ dbName: 'profileData', storeName: 'videos' });
   const { data, fetchData, removeHighlight } = useLoadedHighlights();
 
-  const saveFetchedData = useCallback(async (fetchedData) => {
+  const saveFetchedData = useCallback(async (fetchedData:  Awaited<ReturnType<typeof fetchData>>) => {
     if (isReady && fetchedData) {
       try {
         await addItem(fetchedData);

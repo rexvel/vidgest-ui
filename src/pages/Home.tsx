@@ -1,8 +1,7 @@
 import { useState, useCallback } from 'react';
-import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only } from '@/components';
+import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only, MobileFormPortal } from '@/components';
 import { useVideoData, useMobileForm } from '@/hooks';
 import '@/App.css'
-import { MobileFormPortal } from '@/components/MobileFormPortal';
 
 export function Home() {
   const { data, fetchAndSaveData } = useVideoData();
@@ -26,11 +25,31 @@ export function Home() {
     setShowForm(false);
   }, []);
 
-  const extractVideoId = (url: string) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
+  const extractVideoId = (url: string): string | null => {
+    const youtubeUrlPattern = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(youtubeUrlPattern);
+    
+    const validVideoIdLength = 11;
+    const videoIdMatchGroup = 2;
+
+    const isValidYoutubeId = match && match[videoIdMatchGroup].length === validVideoIdLength;
+
+    if (isValidYoutubeId) {
+      const videoId = match[videoIdMatchGroup];
+      return videoId;
+    }
+
+    return null;
   };
+
+  const handleYoutubeVideoClick = () => {
+    const isMobile = window.innerWidth <= 450;
+    if (isMobile) {
+      setIsMobileFormOpen(true);
+    } else {
+      setShowForm(true);
+    }
+  }
 
   const videoId = extractVideoId(videoUrl);
 
@@ -52,14 +71,7 @@ export function Home() {
           >
             <div
               className="bg-white rounded-[32px] w-[344px] h-[117px] flex items-center p-4 mb-4 cursor-pointer"
-              onClick={() => {
-                const isMobile = window.innerWidth <= 450;
-                if (isMobile) {
-                  setIsMobileFormOpen(true);
-                } else {
-                  setShowForm(true);
-                }
-              }}
+              onClick={handleYoutubeVideoClick}
             >
               <div
                 className="w-[73px] h-[72px] bg-cover bg-center bg-no-repeat mr-4"

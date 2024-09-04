@@ -39,7 +39,7 @@ export const useIndexedDB = <T>({ dbName, storeName, version = 1 }: UseIndexedDB
     return () => {
       db?.close();
     };
-  }, [dbName, storeName, version]);
+  }, [dbName, storeName, version, db]);
 
   const performTransaction = useCallback(
     <R>(mode: IDBTransactionMode, callback: (store: IDBObjectStore) => IDBRequest<R>): Promise<R> => {
