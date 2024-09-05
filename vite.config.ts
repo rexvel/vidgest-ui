@@ -9,17 +9,17 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    open: true,
+    proxy: {
+      '/generate-summary-notes': 'http://localhost:3000',
+    },
+  },
   css: {
     preprocessorOptions: {
       scss: {
         additionalData: `@import "@/styles/variables.scss";`
       }
     }
-  },
-  server: {
-    open: true,
-    proxy: {
-      '/generate-mind-tree': 'http://localhost:3000',
-    },
   },
 })

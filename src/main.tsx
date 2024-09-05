@@ -10,20 +10,27 @@ if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
 }
 
-async function prepare() {
-  if (process.env.NODE_ENV === 'development') {
-    const { worker } = await import('@/mocks/browser')
-    return worker.start()
-  }
-  return Promise.resolve()
-}
+// async function prepare() {
+  // if (process.env.NODE_ENV === 'development') {
+  //   const { worker } = await import('@/mocks/browser')
+  //   return worker.start()
+  // }
+  // return Promise.resolve()
+// }
 
-prepare().then(() => {
-  ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <App />
-    </ClerkProvider>
-  </React.StrictMode>
-  )
-})
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+  <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+    <App />
+  </ClerkProvider>
+</React.StrictMode>
+);
+// prepare().then(() => {
+//   ReactDOM.createRoot(document.getElementById('root')!).render(
+//     <React.StrictMode>
+//     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+//       <App />
+//     </ClerkProvider>
+//   </React.StrictMode>
+//   )
+// })
