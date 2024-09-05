@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only, MobileFormPortal } from '@/components';
 import { useVideoData, useMobileForm } from '@/hooks';
 import '@/App.css'
+import { StreamedSummary } from '@/components/StreamedSummary';
 
 export function Home() {
   const { data, fetchAndSaveData } = useVideoData();
@@ -54,7 +55,8 @@ export function Home() {
   const videoId = extractVideoId(videoUrl);
 
   return (
-    <div className="home-container">
+      <>
+          <div className="home-container">
       <div className="home-content">
         <div className="mb-4">
           <div className="text-[#030303] text-[20px] font-montserrat font-bold leading-[30px] mb-2">
@@ -105,6 +107,7 @@ export function Home() {
             />
           </div>
         </div>
+      <StreamedSummary />
       </div>
       <MobileFormPortal
         isOpen={isMobileFormOpen}
@@ -112,5 +115,6 @@ export function Home() {
         onSubmit={handleMobileFormSubmit}
       />
     </div>
+      </>
   )
 }

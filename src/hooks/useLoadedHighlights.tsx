@@ -1,5 +1,5 @@
-import { Topic } from '@/components/VideoTakewaysList';
 import { useState, useCallback } from 'react';
+import { Topic } from '@/components/VideoTakewaysList';
 
 interface MindTreeState {
   data: {
@@ -35,7 +35,7 @@ export const useLoadedHighlights = () => {
   const fetchData = useCallback(async (url: string) => {
     setLoading(true);
     try {
-      const res = await fetch("/generate-mind-tree", {
+      const res = await fetch("/generate-summary-notes", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

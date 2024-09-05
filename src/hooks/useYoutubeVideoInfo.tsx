@@ -21,8 +21,6 @@ const getApiClient = () => {
   return apiClientInstance;
 };
 
-console.log(import.meta.env)
-
 export const useYouTubeVideoInfo = (videoId: string) => {
   const [videoInfo, setVideoInfo] = useState<ExtendedVideoInfo | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
