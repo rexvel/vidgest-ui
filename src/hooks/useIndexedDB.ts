@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { dbManager } from '@/db/indexedDBManager';
 
 interface UseIndexedDBOptions {
   dbName: string;
@@ -7,57 +8,44 @@ interface UseIndexedDBOptions {
 }
 
 export const useIndexedDB = <T>({ dbName, storeName, version = 1 }: UseIndexedDBOptions) => {
-  const [db, setDb] = useState<IDBDatabase | null>(null);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const request = indexedDB.open(dbName, version);
+    let isMounted = true;
 
-    request.onerror = (event) => {
-      console.error('IndexedDB error:', (event.target as IDBOpenDBRequest).error);
-    };
-
-    request.onsuccess = (event) => {
-      const database = (event.target as IDBOpenDBRequest).result;
-      setDb(database);
-      setIsReady(true);
-
-      database.addEventListener('versionchange', () => {
-        database.close();
-        setDb(null);
-        setIsReady(false);
-      });
-    };
-
-    request.onupgradeneeded = (event) => {
-      const database = (event.target as IDBOpenDBRequest).result;
-      if (!database.objectStoreNames.contains(storeName)) {
-        database.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
+    const initDB = async () => {
+      try {
+        await dbManager.getConnection(dbName, version);
+        if (isMounted) setIsReady(true);
+      } catch (error) {
+        console.error('IndexedDB error:', error);
       }
     };
 
+    initDB();
+
     return () => {
-      db?.close();
+      isMounted = false;
     };
-  }, [dbName, storeName, version, db]);
+  }, [dbName, version]);
 
   const performTransaction = useCallback(
     <R>(mode: IDBTransactionMode, callback: (store: IDBObjectStore) => IDBRequest<R>): Promise<R> => {
-      return new Promise((resolve, reject) => {
-        if (!db) {
-          reject(new Error('Database not initialized'));
-          return;
+      return new Promise(async (resolve, reject) => {
+        try {
+          const db = await dbManager.getConnection(dbName, version);
+          const transaction = db.transaction(storeName, mode);
+          const store = transaction.objectStore(storeName);
+          const request = callback(store);
+
+          request.onerror = () => reject(request.error);
+          request.onsuccess = () => resolve(request.result);
+        } catch (error) {
+          reject(error);
         }
-
-        const transaction = db.transaction(storeName, mode);
-        const store = transaction.objectStore(storeName);
-        const request = callback(store);
-
-        request.onerror = () => reject(request.error);
-        request.onsuccess = () => resolve(request.result);
       });
     },
-    [db, storeName],
+    [dbName, storeName, version],
   );
 
   const add = useCallback(
