@@ -107,7 +107,7 @@ export function Home() {
             />
           </div>
         </div>
-      <StreamedSummary />
+      {/* <StreamedSummary /> */}
       </div>
       <MobileFormPortal
         isOpen={isMobileFormOpen}

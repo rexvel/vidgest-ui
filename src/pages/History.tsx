@@ -14,7 +14,7 @@ interface VideoData {
 }
 
 export const HistoryPage: React.FC = () => {
-  const { getAllItems, removeItem, isReady } = useProfileData<VideoData>({ dbName: 'vidgest', storeName: 'videos' });
+  const { getAllItems, removeItem, isReady } = useProfileData<VideoData>({ dbName: 'mindtree', storeName: 'videos' });
   const [historyItems, setHistoryItems] = useState<VideoData[]>([]);
 
   const fetchHistoryItems = useCallback(async () => {
