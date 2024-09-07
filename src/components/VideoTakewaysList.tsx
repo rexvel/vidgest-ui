@@ -28,6 +28,7 @@ export const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ topics, su
   }
 
   return (
+    <div className="home-takeaways-section">
     <Card className="w-full">
       <CardHeader className='flex flex-col items-start'>
         <CardTitle className='flex flex-start'>Video Takeaways</CardTitle>
@@ -56,6 +57,7 @@ export const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ topics, su
           </div>
         </div>
       </CardContent>
-    </Card>
+      </Card>
+  </div>
   );
 };
