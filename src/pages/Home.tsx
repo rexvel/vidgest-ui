@@ -68,8 +68,8 @@ export function Home() {
             </div>
           </Only>
           <VideoTakewaysList
-            topics={data?.topics?.topics || []}
-            summary={data?.topics?.summary || { description: DEFAULT_SUMMARY_DESCRIPTION }}
+            topics={data?.topics || []}
+            summary={data?.summary || { description: DEFAULT_SUMMARY_DESCRIPTION }}
           />
         </div>
       </div>
