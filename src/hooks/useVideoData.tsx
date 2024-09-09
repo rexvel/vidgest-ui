@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useLoadedHighlights, useProfileData } from '@/hooks';
 
 export function useVideoData() {
-  const { addItem, isReady } = useProfileData({ dbName: 'profileData', storeName: 'videos' });
+  const { addItem, isReady } = useProfileData({ dbName: 'mindtree', storeName: 'videos' });
   const { data, fetchData, removeHighlight } = useLoadedHighlights();
   const [isLoading, setIsLoading] = useState(false);
 

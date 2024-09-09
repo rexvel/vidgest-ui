@@ -1,14 +1,35 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only, MobileFormPortal, YouTubeVideoButton } from '@/components';
 import { useVideoData, useMobileForm, useYouTube } from '@/hooks';
 import { MOBILE_BREAKPOINT, DEFAULT_SUMMARY_DESCRIPTION } from '@/constants';
 import '@/App.css'
+
+const LOCAL_STORAGE_KEY = 'videoData';
 
 export function Home() {
   const { data, fetchAndSaveData, isLoading } = useVideoData();
   const { videoUrl, setVideoUrl, videoId } = useYouTube();
   const [showForm, setShowForm] = useState(false);
   const { isMobileFormOpen, setIsMobileFormOpen } = useMobileForm();
+
+  const [persistentData, setPersistentData] = useState<any>(null);
+
+  useEffect(() => {
+    const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      console.log('parsedData', parsedData);
+      setPersistentData(parsedData);
+    }
+  }, [data, fetchAndSaveData]);
+
+  useEffect(() => {
+    if (Object.keys(data).length > 0) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+    }
+  }, [data]);
+
+  console.log('data', data);
 
   const handleSubmit = useCallback(async (url: string) => {
     setVideoUrl(url);
@@ -34,6 +55,19 @@ export function Home() {
       setShowForm(true);
     }
   }, [setIsMobileFormOpen]);
+
+  const handleData = useMemo(() => {
+    if (Object.keys(data).length > 0) {
+      return data;
+    } else if (persistentData && Object.keys(persistentData).length > 0) {
+      return persistentData;
+    } else {
+      return data;
+    }
+  }, [data, persistentData]);
+
+
+  console.log('res', handleData);
 
   return (
     <div className="home-container">
@@ -69,8 +103,8 @@ export function Home() {
           </Only>
           <div className="w-1/2">
             <VideoTakewaysList
-              topics={data?.topics || []}
-              summary={data?.summary || { description: DEFAULT_SUMMARY_DESCRIPTION }}
+              topics={handleData?.topics || []}
+              summary={handleData?.summary || { description: DEFAULT_SUMMARY_DESCRIPTION }}
               isLoading={isLoading}
             />
           </div>
