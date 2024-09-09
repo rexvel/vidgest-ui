@@ -5,7 +5,7 @@ import { MOBILE_BREAKPOINT, DEFAULT_SUMMARY_DESCRIPTION } from '@/constants';
 import '@/App.css'
 
 export function Home() {
-  const { data, fetchAndSaveData } = useVideoData();
+  const { data, fetchAndSaveData, isLoading } = useVideoData();
   const { videoUrl, setVideoUrl, videoId } = useYouTube();
   const [showForm, setShowForm] = useState(false);
   const { isMobileFormOpen, setIsMobileFormOpen } = useMobileForm();
@@ -70,6 +70,7 @@ export function Home() {
           <VideoTakewaysList
             topics={data?.topics || []}
             summary={data?.summary || { description: DEFAULT_SUMMARY_DESCRIPTION }}
+            isLoading={isLoading}
           />
         </div>
       </div>

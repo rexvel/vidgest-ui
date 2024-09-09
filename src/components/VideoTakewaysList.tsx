@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/Card"
+import { Loader2 as Loader } from "lucide-react";
 
 export interface Topic {
   title: string;
@@ -20,12 +21,23 @@ interface Summary {
 interface VideoTakewaysListProps {
   topics: Topic[];
   summary: Summary;
+  isLoading: boolean;
 }
 
-export const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ topics, summary }) => {
-  if (!topics || topics.length === 0) {
-    return <p>No takeaways available.</p>;
+export const VideoTakewaysList: React.FC<VideoTakewaysListProps> = ({ topics, summary, isLoading }) => {
+  if (isLoading) {
+    return (
+      <div className="home-takeaways-section flex justify-center items-center">
+        <Loader className="h-8 w-8 animate-spin" />
+      </div>
+    );
   }
+
+  if (!topics || topics.length === 0) {
+    return null;
+  }
+
+  console.log({topics, summary})
 
   return (
     <div className="home-takeaways-section">
