@@ -13,7 +13,17 @@ const Only: React.FC<{ if: boolean; children: React.ReactNode }> = ({ if: condit
 
 export const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) => {
   const { videoInfo, loading, error } = useYouTubeVideoInfo(videoId);
-
+  const formatDuration = (duration?: string): string => {
+    if (!duration) return '';
+    
+    const [, hours, minutes, seconds] = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/) || [];
+    
+    return [hours, minutes, seconds]
+      .filter(Boolean)
+      .map(unit => unit.padStart(2, '0'))
+      .join(':');
+  };
+  
   return (
     <Card className="video-card">
       <Only if={loading}>
@@ -53,9 +63,10 @@ export const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({ videoId }) =
           <a href={videoInfo?.videoUrl} target="_blank" rel="noopener noreferrer">
             <img src={videoInfo?.thumbnailUrl} alt={videoInfo?.title} className="video-thumbnail" />
           </a>
-          <p className="video-card-content">Duration: {videoInfo?.duration}</p>
+          <p className="video-card-content">Duration: {formatDuration(videoInfo?.duration)}</p>
         </CardContent>
       </Only>
     </Card>
   );
 };
+
