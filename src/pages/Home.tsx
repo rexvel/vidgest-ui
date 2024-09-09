@@ -61,17 +61,19 @@ export function Home() {
           </div>
         </div>
 
-        <div className="home-layout">
+        <div className="home-layout flex">
           <Only if={!!videoId}>
-            <div className="home-video-section">
+            <div className="home-video-section w-1/2">
               <YouTubeVideoCard videoId={videoId!} />
             </div>
           </Only>
-          <VideoTakewaysList
-            topics={data?.topics || []}
-            summary={data?.summary || { description: DEFAULT_SUMMARY_DESCRIPTION }}
-            isLoading={isLoading}
-          />
+          <div className="w-1/2">
+            <VideoTakewaysList
+              topics={data?.topics || []}
+              summary={data?.summary || { description: DEFAULT_SUMMARY_DESCRIPTION }}
+              isLoading={isLoading}
+            />
+          </div>
         </div>
       </div>
       <MobileFormPortal
