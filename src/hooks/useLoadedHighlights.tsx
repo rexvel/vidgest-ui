@@ -2,17 +2,13 @@ import { useState, useCallback } from 'react';
 import { Topic } from '@/components/VideoTakewaysList';
 
 interface MindTreeState {
-  data: {
-    topics: Topic[] | null;
-  }
+  data: unknown,
   loading: boolean;
   error: string | null;
 }
 
 const initialState: MindTreeState = {
-  data: {
-    topics: null,
-  },
+  data: {},
   loading: false,
   error: null,
 };
@@ -29,7 +25,7 @@ export const useLoadedHighlights = () => {
   }, []);
 
   const setData = useCallback((data: Topic[]) => {
-    setState(prevState => ({ ...prevState, data: { topics: data }, loading: false, error: null }));
+    setState(prevState => ({ ...prevState, data: data , loading: false, error: null }));
   }, []);
 
   const fetchData = useCallback(async (url: string) => {

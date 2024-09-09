@@ -40,7 +40,7 @@ export const VideoUrlForm: React.FC<VideoUrlFormProps> = ({ onSubmit, initialUrl
 
     return (
         <div className="form-container transition-opacity duration-400">
-            <div className="form-layout flex space-x-2">
+            <div className="form-layout flex space-x-2 items-center">
                 <Button
                     variant="outline"
                     onClick={onCancel}

@@ -5,3 +5,4 @@ export * from './useYoutubeVideoInfo';
 export * from './useLoadedHighlights';
 export * from './useMobileForm';
 export * from './useVideoData';
+export * from './useYouTube';

@@ -1,62 +1,76 @@
-import { useState, useCallback } from 'react';
-import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only, MobileFormPortal } from '@/components';
-import { useVideoData, useMobileForm } from '@/hooks';
+import { useState, useCallback, useEffect, useMemo } from 'react';
+import { YouTubeVideoCard, VideoUrlForm, VideoTakewaysList, Only, MobileFormPortal, YouTubeVideoButton } from '@/components';
+import { useVideoData, useMobileForm, useYouTube } from '@/hooks';
+import { MOBILE_BREAKPOINT, DEFAULT_SUMMARY_DESCRIPTION } from '@/constants';
 import '@/App.css'
-import { StreamedSummary } from '@/components/StreamedSummary';
+
+const LOCAL_STORAGE_KEY = 'videoData';
 
 export function Home() {
-  const { data, fetchAndSaveData } = useVideoData();
-  const [videoUrl, setVideoUrl] = useState('');
+  const { data, fetchAndSaveData, isLoading } = useVideoData();
+  const { videoUrl, setVideoUrl, videoId } = useYouTube();
   const [showForm, setShowForm] = useState(false);
   const { isMobileFormOpen, setIsMobileFormOpen } = useMobileForm();
+
+  const [persistentData, setPersistentData] = useState<any>(null);
+
+  useEffect(() => {
+    const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      console.log('parsedData', parsedData);
+      setPersistentData(parsedData);
+    }
+  }, [data, fetchAndSaveData]);
+
+  useEffect(() => {
+    if (Object.keys(data).length > 0) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+    }
+  }, [data]);
+
+  console.log('data', data);
 
   const handleSubmit = useCallback(async (url: string) => {
     setVideoUrl(url);
     await fetchAndSaveData(url);
     setShowForm(false);
-  }, [fetchAndSaveData]);
+  }, [fetchAndSaveData, setVideoUrl]);
 
   const handleMobileFormSubmit = useCallback(async (url: string) => {
     setVideoUrl(url);
     await fetchAndSaveData(url);
     setIsMobileFormOpen(false);
-  }, [fetchAndSaveData, setIsMobileFormOpen]);
+  }, [fetchAndSaveData, setVideoUrl, setIsMobileFormOpen]);
 
   const handleCancel = useCallback(() => {
     setShowForm(false);
   }, []);
 
-  const extractVideoId = (url: string): string | null => {
-    const youtubeUrlPattern = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(youtubeUrlPattern);
-    
-    const validVideoIdLength = 11;
-    const videoIdMatchGroup = 2;
-
-    const isValidYoutubeId = match && match[videoIdMatchGroup].length === validVideoIdLength;
-
-    if (isValidYoutubeId) {
-      const videoId = match[videoIdMatchGroup];
-      return videoId;
-    }
-
-    return null;
-  };
-
-  const handleYoutubeVideoClick = () => {
-    const isMobile = window.innerWidth <= 450;
+  const handleYoutubeVideoClick = useCallback(() => {
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     if (isMobile) {
       setIsMobileFormOpen(true);
     } else {
       setShowForm(true);
     }
-  }
+  }, [setIsMobileFormOpen]);
 
-  const videoId = extractVideoId(videoUrl);
+  const handleData = useMemo(() => {
+    if (Object.keys(data).length > 0) {
+      return data;
+    } else if (persistentData && Object.keys(persistentData).length > 0) {
+      return persistentData;
+    } else {
+      return data;
+    }
+  }, [data, persistentData]);
+
+
+  console.log('res', handleData);
 
   return (
-      <>
-          <div className="home-container">
+    <div className="home-container">
       <div className="home-content">
         <div className="mb-4">
           <div className="text-[#030303] text-[20px] font-montserrat font-bold leading-[30px] mb-2">
@@ -71,20 +85,7 @@ export function Home() {
           <div
             className={`transition-opacity duration-400 ${showForm ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           >
-            <div
-              className="bg-white rounded-[32px] w-[344px] h-[117px] flex items-center p-4 mb-4 cursor-pointer"
-              onClick={handleYoutubeVideoClick}
-            >
-              <div
-                className="w-[73px] h-[72px] bg-cover bg-center bg-no-repeat mr-4"
-                style={{
-                  backgroundImage: `url(https://assets.api.uizard.io/api/cdn/stream/21dd2cdf-057f-4908-91f6-3ace53f43e3b.png)`
-                }}
-              />
-              <div className="text-[#030303] text-[20px] font-montserrat font-bold leading-[29px]">
-                YouTube video
-              </div>
-            </div>
+            <YouTubeVideoButton onClick={handleYoutubeVideoClick} />
           </div>
 
           <div
@@ -94,20 +95,20 @@ export function Home() {
           </div>
         </div>
 
-        <div className="home-layout">
+        <div className="home-layout flex">
           <Only if={!!videoId}>
-            <div className="home-video-section">
+            <div className="home-video-section w-1/2">
               <YouTubeVideoCard videoId={videoId!} />
             </div>
           </Only>
-          <div className="home-takeaways-section">
+          <div className="w-1/2">
             <VideoTakewaysList
-              topics={data?.topics?.topics || []}
-              summary={data?.summary || { description: '', 'bullet-points': [] }}
+              topics={handleData?.topics || []}
+              summary={handleData?.summary || { description: DEFAULT_SUMMARY_DESCRIPTION }}
+              isLoading={isLoading}
             />
           </div>
         </div>
-      {/* <StreamedSummary /> */}
       </div>
       <MobileFormPortal
         isOpen={isMobileFormOpen}
@@ -115,6 +116,5 @@ export function Home() {
         onSubmit={handleMobileFormSubmit}
       />
     </div>
-      </>
-  )
+  );
 }

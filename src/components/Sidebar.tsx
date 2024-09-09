@@ -20,7 +20,7 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="w-full md:w-64 xl:w-72 2xl:w-80 3xl:w-96 4xl:w-112 flex-shrink-0 md:pt-8">
+    <aside className="w-full md:w-48 xl:w-54 2xl:w-60 3xl:w-72 4xl:w-84 flex-shrink-0 md:pt-8">
     <NavigationMenu orientation="horizontal" className="md:orientation-vertical">
       <NavigationMenuList className="flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-4 xl:space-y-6 2xl:space-y-8 overflow-x-auto md:overflow-x-visible py-4 md:py-0">
         <SignedIn>

@@ -1,11 +1,12 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useLoadedHighlights, useProfileData } from '@/hooks';
 
 export function useVideoData() {
-  const { addItem, isReady } = useProfileData({ dbName: 'profileData', storeName: 'videos' });
+  const { addItem, isReady } = useProfileData({ dbName: 'mindtree', storeName: 'videos' });
   const { data, fetchData, removeHighlight } = useLoadedHighlights();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const saveFetchedData = useCallback(async (fetchedData:  Awaited<ReturnType<typeof fetchData>>) => {
+  const saveFetchedData = useCallback(async (fetchedData: Awaited<ReturnType<typeof fetchData>>) => {
     if (isReady && fetchedData) {
       try {
         await addItem(fetchedData);
@@ -17,11 +18,16 @@ export function useVideoData() {
   }, [isReady, addItem]);
 
   const fetchAndSaveData = useCallback(async (url: string) => {
-    const fetchedData = await fetchData(url);
-    if (fetchedData) {
-      await saveFetchedData(fetchedData);
+    setIsLoading(true);
+    try {
+      const fetchedData = await fetchData(url);
+      if (fetchedData) {
+        await saveFetchedData(fetchedData);
+      }
+    } finally {
+      setIsLoading(false);
     }
   }, [fetchData, saveFetchedData]);
 
-  return { data, fetchAndSaveData, removeHighlight };
+  return { data, fetchAndSaveData, removeHighlight, isLoading };
 }
